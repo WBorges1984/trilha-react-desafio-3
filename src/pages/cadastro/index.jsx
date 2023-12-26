@@ -1,4 +1,4 @@
-import { MdEmail, MdLock } from "react-icons/md";
+import { MdEmail, MdLock, MdPerson } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
@@ -10,8 +10,7 @@ import { useForm } from "react-hook-form";
 import {
     Column,
     Container,
-    CriarText,
-    EsqueciText,
+    FazerLogin,
     Row,
     SubtitleLogin,
     Title,
@@ -19,12 +18,8 @@ import {
     Wrapper,
 } from "./styles";
 
-const Login = () => {
+const Cadastro = () => {
     const navigate = useNavigate();
-
-    const handleClickAdd = () => {
-        navigate("/cadastro");
-    };
 
     const {
         control,
@@ -42,7 +37,7 @@ const Login = () => {
             );
 
             if (data.length && data[0].id) {
-                navigate("/feed");
+                navigate("/cadastro");
                 return;
             }
 
@@ -67,11 +62,18 @@ const Login = () => {
                 </Column>
                 <Column>
                     <Wrapper>
-                        <TitleLogin>Faça seu cadastro</TitleLogin>
+                        <TitleLogin>Comece agora grátis</TitleLogin>
                         <SubtitleLogin>
-                            Faça seu login e make the change._
+                            Crie sua conta e make the change._
                         </SubtitleLogin>
                         <form onSubmit={handleSubmit(onSubmit)}>
+                            <Input
+                                placeholder="Nome Completo"
+                                leftIcon={<MdPerson />}
+                                name="name"
+                                control={control}
+                            />
+                            {errors.nome && <span>E-mail é obrigatório</span>}
                             <Input
                                 placeholder="E-mail"
                                 leftIcon={<MdEmail />}
@@ -88,16 +90,20 @@ const Login = () => {
                             />
                             {errors.senha && <span>Senha é obrigatório</span>}
                             <Button
-                                title="Entrar"
+                                title="Criar minha conta"
                                 variant="secondary"
                                 type="submit"
                             />
+                            <SubtitleLogin>
+                                <br />
+                                Ao clicar em "criar minha conta grátis", declaro
+                                que aceito as Políticas de Privacidade e os
+                                Termos de Uso da DIO.
+                            </SubtitleLogin>
                         </form>
                         <Row>
-                            <EsqueciText>Esqueci minha senha</EsqueciText>
-                            <CriarText onClick={handleClickAdd}>
-                                Criar Conta
-                            </CriarText>
+                            <span>Já tenho conta.</span>
+                            <FazerLogin>Fazer login</FazerLogin>
                         </Row>
                     </Wrapper>
                 </Column>
@@ -106,4 +112,4 @@ const Login = () => {
     );
 };
 
-export { Login };
+export { Cadastro };
